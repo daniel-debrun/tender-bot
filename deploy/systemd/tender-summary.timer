@@ -1,0 +1,11 @@
+# tender-summary.timer: Mon..Fri *-*-* 17:30:00 America/New_York
+[Unit]
+Description=timer for tender-summary
+
+[Timer]
+OnCalendar=Mon..Fri *-*-* 17:30:00 America/New_York
+Persistent=true
+RandomizedDelaySec=0
+
+[Install]
+WantedBy=timers.target

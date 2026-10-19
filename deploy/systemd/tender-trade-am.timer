@@ -1,0 +1,11 @@
+# tender-trade-am.timer: Mon..Fri *-*-* 10:00:00 America/New_York
+[Unit]
+Description=timer for tender-trade-am
+
+[Timer]
+OnCalendar=Mon..Fri *-*-* 10:00:00 America/New_York
+Persistent=false
+RandomizedDelaySec=0
+
+[Install]
+WantedBy=timers.target

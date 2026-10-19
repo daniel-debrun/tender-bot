@@ -1,0 +1,11 @@
+# tender-scan-evening.timer: Mon..Fri *-*-* 23:00:00 America/New_York
+[Unit]
+Description=timer for tender-scan-evening
+
+[Timer]
+OnCalendar=Mon..Fri *-*-* 23:00:00 America/New_York
+Persistent=true
+RandomizedDelaySec=0
+
+[Install]
+WantedBy=timers.target

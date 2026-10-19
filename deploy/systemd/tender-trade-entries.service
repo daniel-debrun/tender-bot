@@ -1,0 +1,15 @@
+# tender-trade-entries: Close entry run: buy today's eligible offers (paper orders)
+# Install (after review): see live/tender_bot/README.md "Scheduling". Logs: journalctl --user -u tender-trade-entries
+[Unit]
+Description=tender-bot: Close entry run: buy today's eligible offers (paper orders)
+After=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=%h/tender-bot
+Environment=PYTHONUNBUFFERED=1
+Environment=DISPLAY=:0
+Environment=DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/%U/bus
+# job-guard failures (exit 1/3/4/6) alert through ibkr-ops; offer notifications use notify-send directly
+Environment="IBKR_OPS_ALERT_CMD=notify-send -u critical tender-bot-job"
+ExecStart=/usr/bin/timeout -k 30 600 %h/tender-bot/.venv/bin/tender_bot trade --entries --place

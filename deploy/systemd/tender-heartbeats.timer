@@ -1,0 +1,11 @@
+# tender-heartbeats.timer: Mon..Fri *-*-* 11:00:00 America/New_York
+[Unit]
+Description=timer for tender-heartbeats
+
+[Timer]
+OnCalendar=Mon..Fri *-*-* 11:00:00 America/New_York
+Persistent=true
+RandomizedDelaySec=0
+
+[Install]
+WantedBy=timers.target

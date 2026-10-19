@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tender-bot"
+version = "0.1.0"
+description = "Odd-lot issuer tender offer bot: EDGAR SC TO-I scan, eligibility rules and IBKR execution via ibkr-ops"
+requires-python = ">=3.10"
+dependencies = ["ibkr-ops"]
+
+[project.optional-dependencies]
+test = ["pytest"]
+
+[project.scripts]
+tender_bot = "tender_bot.cli:main"
+
+[tool.setuptools]
+packages = ["tender_bot"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

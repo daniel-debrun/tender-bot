@@ -1,0 +1,17 @@
+# tender-bot crontab ALTERNATIVE to the systemd timers in deploy/systemd (use one or the other, not both).
+# Times are this host's local time (US Eastern); Debian cron ignores CRON_TZ. Each job also
+# checks its intended UTC window in code (exit 6 + alert on a misfire). Install after review with `crontab -e`.
+TB=$HOME/tender-bot/.venv/bin/tender_bot
+RUN=$HOME/ibkr-ops/scripts/cron-run.sh
+IBKR_OPS_ALERT_CMD="notify-send -u critical tender-bot-job"
+# notify-send from cron needs the desktop session:
+DISPLAY=:0
+DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus
+
+*/10 8-17 * * 1-5  $RUN 600  $TB scan
+0 23 * * 1-5       $RUN 1200 $TB scan --evening
+40 9 * * 1-5       $RUN 600  $TB deadline
+0 10 * * 1-5       $RUN 900  $TB trade --place
+50 15 * * 1-5      $RUN 600  $TB trade --entries --place
+30 17 * * 1-5      $RUN 300  $TB summary
+0 11 * * 1-5       $RUN 120  $HOME/tender-bot/.venv/bin/python -m ibkr_ops heartbeats tender-scan=2 tender-deadline=96 tender-trade-am=96 tender-trade-entries=96 tender-summary=96 --alert

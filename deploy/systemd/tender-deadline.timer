@@ -1,0 +1,11 @@
+# tender-deadline.timer: Mon..Fri *-*-* 09:40:00 America/New_York
+[Unit]
+Description=timer for tender-deadline
+
+[Timer]
+OnCalendar=Mon..Fri *-*-* 09:40:00 America/New_York
+Persistent=false
+RandomizedDelaySec=0
+
+[Install]
+WantedBy=timers.target
